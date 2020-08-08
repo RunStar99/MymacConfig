@@ -1,0 +1,59 @@
+function proxy_off(){
+    unset http_proxy
+    unset https_proxy
+    unset all_proxy
+    echo -e "已关闭代理"
+}
+function proxy_on(){
+    export https_proxy="http://127.0.0.1:7890"
+    export http_proxy="http://127.0.0.1:7890"
+    export all_proxy="socks5://127.0.0.1:7891"
+    print "127.0.0.1:7890"
+}
+function openwrt(){
+    ssh root@192.168.1.1
+}
+
+# Rclone挂载GD
+function GDrclone(){
+    rclone mount Rstar:/ /Users/runstar/MyGD \
+    --default-permissions \
+    --no-check-certificate \
+    --allow-non-empty \
+    --allow-other \
+    --vfs-cache-mode writes \
+    --daemon &
+}
+
+# 天气
+function weather(){
+	curl -H "Accept-Language: zh" wttr.in
+}
+
+# ntfs-3g挂载
+function win_ntfs(){
+    sudo /usr/local/bin/ntfs-3g /dev/disk1s1 /Volumes/软件 -olocal -oallow_other -o auto_xattr
+    sudo /usr/local/bin/ntfs-3g /dev/disk1s2 /Volumes/文档 -olocal -oallow_other -o auto_xattr
+}
+
+# 音量控制
+function sydx () {
+    local vol="$1"
+    if [[ "$vol" =~ ^[0-9]+$ ]] && (($vol >=0 && $vol <=100)) ; then
+        osascript -e "set volume output volume $vol"
+        echo "音量已修改为: $(osascript -e 'output volume of (get volume settings)')%."
+    else
+        echo "参数错误, 帮助: $0 0-100"
+        echo "音量未修改成功, 当前音量: $(osascript -e 'output volume of (get volume settings)')%."
+        return
+    fi
+}
+alias QE='iina /Users/runstar/GDfile/live/企鹅.m3u'
+alias st='sudo shutdown -h now'
+alias uclash='scp /Users/runstar/GDfile/config/Clash/MyProvider.yaml root@192.168.1.1:/etc/openclash/config/myProvider.yaml'
+alias iina='/Applications/IINA.app/Contents/MacOS/iina-cli'
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home
+export CLASSPAHT=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$JAVA_HOME/bin:$PATH:
+export PATH=$PATH:/usr/local/mysql/bin
+export PATH=$PATH:/usr/local/mysql/support-files
