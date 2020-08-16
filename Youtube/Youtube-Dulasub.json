@@ -1,0 +1,43 @@
+{
+    "title": "dualsub-legend",
+    "version": "1.0",
+    "time": "2020-07-11 04:04:52",
+    "styles": [
+        {
+            "name": "黄色",
+            "component": {
+                "dialogue": {
+                    "fontSize": 25,
+                    "fontColor": "#2cff26",
+                    "fontEdgeEffect": "outline",
+                    "fontEdgeColor": "#ff1f18"
+                }
+            }
+        },
+        {
+            "name": "蓝色",
+            "component": {
+                "dialogue": {
+                    "fontSize": 23,
+                    "fontColor": "#ff29fa",
+                    "fontEdgeColor": "#ffffff"
+                }
+            }
+        }
+    ],
+    "rulers": [],
+    "themes": [
+        {
+            "name": "Yellow",
+            "styles": [
+                "黄色"
+            ]
+        },
+        {
+            "name": "Blue",
+            "styles": [
+                "蓝色"
+            ]
+        }
+    ]
+}
