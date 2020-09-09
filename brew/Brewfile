@@ -1,0 +1,122 @@
+tap "caskroom/cask"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/core", "https://github.com/Homebrew/homebrew-core.git"
+tap "homebrew/services"
+cask "osxfuse"
+# Download with resuming and segmented downloading
+brew "aria2"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.8"
+# GNOME accessibility toolkit
+brew "atk"
+# Shell extension to jump to frequently used directories
+brew "autojump"
+# Console Matrix
+brew "cmatrix"
+# Reimplementation of ctags(1)
+brew "ctags"
+# GNU Transport Layer Security (TLS) Library
+brew "gnutls"
+# OpenType text shaping engine
+brew "harfbuzz"
+# Play, record, convert, and stream audio and video
+brew "ffmpeg"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# Toolkit for image loading and pixel buffer manipulation
+brew "gdk-pixbuf"
+# Command-line utility for uploading Gists
+brew "gist"
+# Network related modules for glib
+brew "glib-networking"
+# Graph visualization software from AT&T and Bell Labs
+brew "graphviz"
+# Development framework for multimedia applications
+brew "gstreamer"
+# GStreamer plugins (well-supported, basic set)
+brew "gst-plugins-base"
+# GStreamer Editing Services
+brew "gst-editing-services"
+# GStreamer plugins for Libav (a fork of FFmpeg)
+brew "gst-libav"
+# GStreamer plugins less supported, not fully tested
+brew "gst-plugins-bad"
+# Toolkit for creating graphical user interfaces
+brew "gtk+3"
+# C library for the Public Suffix List
+brew "libpsl"
+# HTTP client/server library for GNOME
+brew "libsoup"
+# GStreamer plugins (well-supported, under the LGPL)
+brew "gst-plugins-good"
+# Library for constructing graphs of media-handling components
+brew "gst-plugins-ugly"
+# RTSP server library based on GStreamer
+brew "gst-rtsp-server"
+# Instant coding answers via the command-line
+brew "howdoi"
+# Improved top (interactive process viewer)
+brew "htop"
+# Tools and libraries to manipulate images in many formats
+brew "imagemagick"
+# GNU utilities for networking
+brew "inetutils", link: false
+# USB multiplexor library for iOS devices
+brew "libusbmuxd"
+# Recursively compute digests on files/directories
+brew "md5deep"
+# Open source relational database management system
+brew "mysql"
+# Fast, highly customisable system info script
+brew "neofetch"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Statically typed compiled systems programming language
+brew "nim"
+# Port scanning utility for large networks
+brew "nmap"
+# Platform built on V8 to build network applications
+brew "node"
+# Read-write NTFS driver for FUSE
+brew "ntfs-3g"
+# 7-Zip (high compression file archiver) implementation
+brew "p7zip"
+# File browser
+brew "ranger"
+# Rsync for cloud storage
+brew "rclone"
+# TCP connect to the given IP/port combo
+brew "tcping"
+# User interface to the TELNET protocol
+brew "telnet"
+# Code-search similar to ack
+brew "the_silver_searcher"
+# Terminal multiplexer
+brew "tmux"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Vi 'workalike' with many additional features
+brew "vim"
+# Internet file retriever
+brew "wget"
+# Download YouTube videos from the command-line
+brew "youtube-dl", link: false
+# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-autosuggestions"
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
+cask "bartender"
+cask "docker"
+cask "font-hack-nerd-font"
+cask "ibm-cloud-cli"
+cask "qlcolorcode"
+cask "qlimagesize"
+cask "qlmarkdown"
+cask "qlstephen"
+cask "qlvideo"
+cask "quicklook-json"
+cask "quicklookase"
+cask "rar"
+cask "suspicious-package"
