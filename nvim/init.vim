@@ -1,23 +1,45 @@
-"
-" __  __     __     _____ __  __ ____   ____ 
-"|  \/  |_   \ \   / /_ _|  \/  |  _ \ / ___|
-"| |\/| | | | \ \ / / | || |\/| | |_) | |    
-"| |  | | |_| |\ V /  | || |  | |  _ <| |___ 
-"|_|  |_|\__, | \_/  |___|_|  |_|_| \_\\____|
-"        |___/                               
-let mapleader = "\<space>"
+"  ____                  _           __     _____ __  __ ____   ____
+" |  _ \ _   _ _ __  ___| |_ __ _ _ _\ \   / /_ _|  \/  |  _ \ / ___|
+" | |_) | | | | '_ \/ __| __/ _` | '__\ \ / / | || |\/| | |_) | |
+" |  _ <| |_| | | | \__ \ || (_| | |   \ V /  | || |  | |  _ <| |___
+" |_| \_\\__,_|_| |_|___/\__\__,_|_|    \_/  |___|_|  |_|_| \_\\____|
+
+
+" ===
+" === Auto load for first time uses
+" ===
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
+let mapleader = "\<space>"		"<leader>键设为空格
 syntax on
 filetype on
 filetype plugin on
 filetype plugin indent on
 filetype indent on
+set relativenumber
 set mouse=a
 set encoding=utf-8
 set number
 set cursorline	 " 提示下划线
 set hidden
+set noexpandtab 	"Tab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set autoindent 		"自动缩进
+" set list
+" set listchars=tab:\|\ ,trail:▫
+set ttimeoutlen=0
+set notimeout
+set viewoptions=cursor,folds,slash,unix
 set scrolloff=5	 " 保持屏幕最上下边界有5行
 set wrap
+set tw=0
 set wildmenu	 " :命令补全 
 set hlsearch	 " 高亮搜索
 exec "nohlsearch"
@@ -26,11 +48,68 @@ set incsearch	 " 输入时高亮
 set ignorecase	 " 忽略大小写
 set smartcase
 set shortmess+=c
+set inccommand=split
+set completeopt=longest,noinsert,menuone,noselect,preview		"弹窗预览
+set ttyfast "should make scrolling faster
+set lazyredraw "same as above
+set visualbell
 set updatetime=100
 set t_Co=256
 set wildmode=longest:list,full
 set autochdir
 set termguicolors
+set indentexpr=
+set foldmethod=indent
+set foldlevel=99
+set foldenable
+set formatoptions-=tc
+set splitright
+set splitbelow
+set noshowmode
+set showcmd
+set colorcolumn=100
+set virtualedit=block
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" Adjacent duplicate words
+noremap <LEADER>dw /\(\<\w\+\>\)\_s*\1
+" Auto change directory to current dir
+autocmd BufEnter * silent! lcd %:p:h
+
+" Space to Tab
+nnoremap <LEADER>tt :%s/    /\t/g
+vnoremap <LEADER>tt :s/    /\t/g
+" make Y to copy till the end of the line
+nnoremap Y y$
+
+" Copy to system clipboard
+vnoremap Y "+y
+" find and replace 替换字符
+noremap \s :%s//g<left><left>
+" set wrap
+noremap <LEADER>sw :set wrap<CR>
+
+" ===
+" === Terminal Behaviors
+" ===
+let g:neoterm_autoscroll = 1
+autocmd TermOpen term://* startinsert
+tnoremap <C-N> <C-\><C-N>
+tnoremap <C-O> <C-\><C-N><C-O>
+let g:terminal_color_0  = '#000000'
+let g:terminal_color_1  = '#FF5555'
+let g:terminal_color_2  = '#50FA7B'
+let g:terminal_color_3  = '#F1FA8C'
+let g:terminal_color_4  = '#BD93F9'
+let g:terminal_color_5  = '#FF79C6'
+let g:terminal_color_6  = '#8BE9FD'
+let g:terminal_color_7  = '#BFBFBF'
+let g:terminal_color_8  = '#4D4D4D'
+let g:terminal_color_9  = '#FF6E67'
+let g:terminal_color_10 = '#5AF78E'
+let g:terminal_color_11 = '#F4F99D'
+let g:terminal_color_12 = '#CAA9FA'
+let g:terminal_color_13 = '#FF92D0'
+let g:terminal_color_14 = '#9AEDFE'
 "nmap <F5> :NERDTreeToggle<CR>
 
 " 解决插入模式下delete/backspce键失效问题
@@ -52,11 +131,11 @@ noremap r :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
-		exec "!g++ % -o %<"
+		exec "!clang % -o %<"
 		exec "!time ./%<"
 	elseif &filetype == 'cpp'
 		set splitbelow
-		exec "!g++ -std=c++11 % -Wall -o %<"
+		exec "!clang -std=c++11 % -Wall -o %<"
 		:sp
 		:res -15
 		:term ./%<
@@ -95,10 +174,17 @@ endfunc
 map S :w<CR>
 map Q :q<CR>
 map R :source $MYVIMRC<CR>
+" 快速移动
 map J 5j
 map K 5k
 map H 5h
 map L 5l
+noremap W 5w
+noremap B 5b
+" ===
+" === Insert Mode Cursor Movement
+" ===
+inoremap <C-a> <ESC>A
 " 分屏
 map sh :set nosplitright<CR>:vsplit<CR>
 map sl :set splitright<CR>:vsplit<CR>
@@ -346,6 +432,36 @@ let &t_ut=''
 set autochdir
 
 " ===
+" === vim-go
+" ===
+let g:go_echo_go_info = 0
+let g:go_doc_popup_window = 1
+let g:go_def_mapping_enabled = 0
+let g:go_template_autocreate = 0
+let g:go_textobj_enabled = 0
+let g:go_auto_type_info = 1
+let g:go_def_mapping_enabled = 0
+let g:go_highlight_array_whitespace_error = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_chan_whitespace_error = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_string_spellcheck = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_trailing_whitespace_error = 1
+let g:go_highlight_types = 1
+let g:go_highlight_variable_assignments = 0
+let g:go_highlight_variable_declarations = 0
+let g:go_doc_keywordprg_enabled = 0
+" ===
 " === AutoFormat 自动格式化代码
 " ===
 nnoremap \f :Autoformat<CR>
@@ -395,6 +511,9 @@ function! s:check_back_space() abort
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 inoremap <silent><expr> <c-o> coc#refresh()  	 "调出自动补全
+nnoremap <LEADER>h :call Show_documentation()<CR>
+
+nnoremap <silent><nowait> <LEADER>d :CocList diagnostics<cr>
 " space- space+ 上下查找代码报错 
 nmap <silent> <LEADER>- <Plug>(coc-diagnostic-prev)
 nmap <silent> <LEADER>= <Plug>(coc-diagnostic-next)
@@ -413,6 +532,8 @@ function! s:cocActionsOpenFromSelected(type) abort
 endfunction
 xmap <silent> <leader>a :<C-k>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>a :<C-k>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+" coc-tasks
+noremap <silent> <leader>ts :CocList tasks<CR>
 " coc-snippets
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
@@ -432,3 +553,197 @@ nmap <LEADER>cj g>c 	#添加注释
 vmap <LEADER>cj g>
 nmap <LEADER>ck g<c 	#删除注释
 vmap <LEADER>ck g<
+" ===
+" === vim-instant-markdown
+" ===
+let g:instant_markdown_slow = 0
+let g:instant_markdown_autostart = 0
+" let g:instant_markdown_open_to_the_world = 1
+" let g:instant_markdown_allow_unsafe_content = 1
+" let g:instant_markdown_allow_external_content = 0
+" let g:instant_markdown_mathjax = 1
+let g:instant_markdown_autoscroll = 1
+" ===
+" === vim-markdown-toc
+" ===
+"let g:vmt_auto_update_on_save = 0
+"let g:vmt_dont_insert_fence = 1
+let g:vmt_cycle_list_item_markers = 1
+let g:vmt_fence_text = 'TOC'
+let g:vmt_fence_closing_text = '/TOC'
+" ===
+" === Bullets.vim
+" ===
+" let g:bullets_set_mappings = 0
+let g:bullets_enabled_file_types = [
+			\ 'markdown',
+			\ 'text',
+			\ 'gitcommit',
+			\ 'scratch'
+			\]
+" ===
+" === Markdown Settings
+" ===
+" Snippets
+source $HOME/.config/nvim/md-snippets.vim
+" auto spell
+autocmd BufRead,BufNewFile *.md setlocal spell
+" Folding 折叠
+noremap <silent> <LEADER>o za
+" ===
+" === rnvimr
+" ===
+let g:rnvimr_ex_enable = 1
+let g:rnvimr_pick_enable = 1
+let g:rnvimr_draw_border = 0
+" let g:rnvimr_bw_enable = 1
+highlight link RnvimrNormal CursorLine
+nnoremap <silent> R :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
+let g:rnvimr_action = {
+            \ '<C-t>': 'NvimEdit tabedit',
+            \ '<C-x>': 'NvimEdit split',
+            \ '<C-v>': 'NvimEdit vsplit',
+            \ 'gw': 'JumpNvimCwd',
+            \ 'yw': 'EmitRangerCwd'
+            \ }
+let g:rnvimr_layout = { 'relative': 'editor',
+            \ 'width': &columns,
+            \ 'height': &lines,
+            \ 'col': 0,
+            \ 'row': 0,
+            \ 'style': 'minimal' }
+let g:rnvimr_presets = [{'width': 1.0, 'height': 1.0}]
+" ===
+" === any-jump
+" ===
+nnoremap <LEADER>e :AnyJump<CR>
+let g:any_jump_window_width_ratio  = 0.8
+let g:any_jump_window_height_ratio = 0.9
+" ===
+" === eleline.vim
+" ===
+let g:airline_powerline_fonts = 0
+" ===
+" === vim-table-mode
+" ===
+noremap <LEADER>tm :TableModeToggle<CR>
+"let g:table_mode_disable_mappings = 1
+let g:table_mode_cell_text_object_i_map = 'k<Bar>'
+
+" ===
+" === Undotree
+" ===
+noremap <F5> :UndotreeToggle<CR>
+let g:undotree_DiffAutoOpen = 1
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
+let g:undotree_WindowLayout = 2
+let g:undotree_DiffpanelHeight = 8
+let g:undotree_SplitWidth = 24
+function g:Undotree_CustomMap()
+	nmap <buffer> k <plug>UndotreeNextState
+	nmap <buffer> j <plug>UndotreePreviousState
+	nmap <buffer> K 5<plug>UndotreeNextState
+	nmap <buffer> J 5<plug>UndotreePreviousState
+endfunc
+
+" ===
+" === Vista.vim
+" ===
+noremap <LEADER>v :Vista coc<CR>
+noremap <c-t> :silent! Vista finder coc<CR>
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'ctags'
+let g:vista_fzf_preview = ['right:50%']
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+" function! NearestMethodOrFunction() abort
+" 	return get(b:, 'vista_nearest_method_or_function', '')
+" endfunction
+" set statusline+=%{NearestMethodOrFunction()}
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+let g:scrollstatus_size = 15
+
+" ===
+" === vimtex
+" ===
+"let g:vimtex_view_method = ''
+let g:vimtex_view_general_viewer = 'llpp'
+let g:vimtex_mappings_enabled = 0
+let g:vimtex_text_obj_enabled = 0
+let g:vimtex_motion_enabled = 0
+let maplocalleader=' '
+" ===
+" === goyo
+" ===
+map <LEADER>gy :Goyo<CR>
+
+" ===
+" === vim-calendar
+" ===
+"noremap \c :Calendar -position=here<CR>
+noremap \\ :Calendar -view=clock -position=here<CR>
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+augroup calendar-mappings
+	autocmd!
+	" diamond cursor
+	autocmd FileType calendar nmap <buffer> k <Plug>(calendar_up)
+	autocmd FileType calendar nmap <buffer> h <Plug>(calendar_left)
+	autocmd FileType calendar nmap <buffer> j <Plug>(calendar_down)
+	autocmd FileType calendar nmap <buffer> l <Plug>(calendar_right)
+	autocmd FileType calendar nmap <buffer> <c-k> <Plug>(calendar_move_up)
+	autocmd FileType calendar nmap <buffer> <c-h> <Plug>(calendar_move_left)
+	autocmd FileType calendar nmap <buffer> <c-j> <Plug>(calendar_move_down)
+	autocmd FileType calendar nmap <buffer> <c-l> <Plug>(calendar_move_right)
+	autocmd FileType calendar nmap <buffer> k <Plug>(calendar_start_insert)
+	autocmd FileType calendar nmap <buffer> K <Plug>(calendar_start_insert_head)
+	" unmap <C-n>, <C-p> for other plugins
+	autocmd FileType calendar nunmap <buffer> <C-n>
+	autocmd FileType calendar nunmap <buffer> <C-p>
+augroup END
+" ===
+" === rainbow
+" ===
+let g:rainbow_active = 1
+" ===
+" === xtabline
+" ===
+let g:xtabline_settings = {}
+let g:xtabline_settings.enable_mappings = 0
+let g:xtabline_settings.tabline_modes = ['tabs', 'buffers']
+let g:xtabline_settings.enable_persistance = 0
+let g:xtabline_settings.last_open_first = 1
+noremap to :XTabCycleMode<CR>
+noremap \p :echo expand('%:p')<CR>
+" ===
+" === vimspector 调试
+" ===
+let g:vimspector_enable_mappings = 'HUMAN'
+function! s:read_template_into_buffer(template)
+	" has to be a function to avoid the extra space fzf#run insers otherwise
+	execute '0r ~/.config/nvim/sample_vimspector_json/'.a:template
+endfunction
+command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
+			\   'source': 'ls -1 ~/.config/nvim/sample_vimspector_json',
+			\   'down': 20,
+			\   'sink': function('<sid>read_template_into_buffer')
+			\ })
+" noremap <leader>vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
+sign define vimspectorBP text=☛ texthl=Normal
+sign define vimspectorBPDisabled text=☞ texthl=Normal
+sign define vimspectorPC text=🔶 texthl=SpellBad
+" ===
+" === vim-illuminate
+" ===
+let g:Illuminate_delay = 750
+hi illuminatedWord cterm=undercurl gui=undercurl
+" ===
+" === vim-rooter
+" ===
+let g:rooter_patterns = ['__vim_project_root', '.git/']
+let g:rooter_silent_chdir = 1

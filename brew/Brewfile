@@ -23,6 +23,8 @@ brew "gnutls"
 brew "harfbuzz"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
+# Banner-like program prints strings as ASCII art
+brew "figlet"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Toolkit for image loading and pixel buffer manipulation
@@ -63,6 +65,8 @@ brew "htop"
 brew "imagemagick"
 # GNU utilities for networking
 brew "inetutils", link: false
+# Simple terminal UI for git commands
+brew "lazygit"
 # USB multiplexor library for iOS devices
 brew "libusbmuxd"
 # Recursively compute digests on files/directories
@@ -99,6 +103,8 @@ brew "tmux"
 brew "tree"
 # Vi 'workalike' with many additional features
 brew "vim"
+# Pager/text based browser
+brew "w3m"
 # Internet file retriever
 brew "wget"
 # Download YouTube videos from the command-line
