@@ -32,7 +32,15 @@ Transform query strings through base64, html, url, and utf-8 encode/decode ~ *by
 
 Generate fake data such as name, email address, credit card number, etc ~ *by [@groenewege](https://github.com/groenewege).*
 
+> Triggers: `faker`, `fakerlocale`.
 
+<img width="594" alt="faker" src="https://cloud.githubusercontent.com/assets/398893/14360271/6d1ba944-fcaa-11e5-85dc-54045946f02e.png">
+
+### [GitHub](https://github.com/gharlan/alfred-github-workflow) (v1.6.0) ~ [Download](https://github.com/zenorocha/alfred-workflows/raw/master/github/github.alfredworkflow)
+
+Easily open [GitHub](https://github.com/) repositories and more in the browser ~ *by [@gharlan](https://github.com/gharlan/).*
+
+P.S.: You have to login before you can use the workflow: `gh > login <user>`.
 
 > Triggers: `gh`.
 
