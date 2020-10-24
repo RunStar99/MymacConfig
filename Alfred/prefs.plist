@@ -13,7 +13,7 @@
 			<key>text</key>
 			<string>贴吧搜索</string>
 			<key>url</key>
-			<string>http://tieba.baidu.com/f/search/res?ie=utf-8&amp;kw=&amp;qw={query}</string>
+			<string>https://tieba.baidu.com/f/search/res?ie=utf-8&amp;kw=&amp;qw={query}</string>
 			<key>utf8</key>
 			<true/>
 		</dict>
@@ -65,7 +65,7 @@
 			<key>text</key>
 			<string>谷歌翻译Cn</string>
 			<key>url</key>
-			<string>http://translate.google.cn/#view=home&amp;op=translate&amp;sl=zh-CN&amp;tl=en&amp;text={query}</string>
+			<string>https://translate.google.cn/#view=home&amp;op=translate&amp;sl=zh-CN&amp;tl=en&amp;text={query}</string>
 			<key>utf8</key>
 			<true/>
 		</dict>
@@ -143,7 +143,7 @@
 			<key>text</key>
 			<string>百度地图</string>
 			<key>url</key>
-			<string>http://map.baidu.com/?newmap=1&amp;ie=utf-8&amp;s=s%26wd%3D{query}</string>
+			<string>https://map.baidu.com/?newmap=1&amp;ie=utf-8&amp;s=s%26wd%3D{query}</string>
 			<key>utf8</key>
 			<true/>
 		</dict>
@@ -182,7 +182,7 @@
 			<key>text</key>
 			<string>微博</string>
 			<key>url</key>
-			<string>http://s.weibo.com/weibo/{query}</string>
+			<string>https://s.weibo.com/weibo/{query}</string>
 			<key>utf8</key>
 			<true/>
 		</dict>
@@ -208,7 +208,7 @@
 			<key>text</key>
 			<string>知乎</string>
 			<key>url</key>
-			<string>http://www.zhihu.com/search?q={query}</string>
+			<string>https://www.zhihu.com/search?q={query}</string>
 			<key>utf8</key>
 			<true/>
 		</dict>
@@ -247,7 +247,7 @@
 			<key>text</key>
 			<string>百度</string>
 			<key>url</key>
-			<string>http://www.baidu.com/s?ie=UTF-8&amp;wd={query}</string>
+			<string>https://www.baidu.com/s?&amp;wd={query}</string>
 			<key>utf8</key>
 			<true/>
 		</dict>
@@ -273,7 +273,7 @@
 			<key>text</key>
 			<string>淘宝</string>
 			<key>url</key>
-			<string>http://s.taobao.com/search?oe=utf-8&amp;f=8&amp;q={query}</string>
+			<string>https://s.taobao.com/search?oe=utf-8&amp;f=8&amp;q={query}</string>
 			<key>utf8</key>
 			<true/>
 		</dict>
@@ -317,5 +317,7 @@
 			<true/>
 		</dict>
 	</dict>
+	<key>useHTTPS</key>
+	<true/>
 </dict>
 </plist>
