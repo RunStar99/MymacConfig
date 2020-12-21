@@ -1,59 +1,8 @@
 {
     "title": "dualsub-legend",
     "version": "1.0",
-    "time": "2020-08-28 04:40:41",
+    "time": "2020-12-21 15:01:18",
     "styles": [
-        {
-            "component": {
-                "dialogue": {
-                    "fontSize": 42
-                }
-            },
-            "name": "大号字体"
-        },
-        {
-            "component": {
-                "dialogue": {
-                    "fontSize": 30
-                }
-            },
-            "name": "小号字体"
-        },
-        {
-            "component": {
-                "pinyin": {
-                    "display": "true"
-                }
-            },
-            "name": "显示拼音"
-        },
-        {
-            "component": {
-                "hiragana": {
-                    "display": "true"
-                }
-            },
-            "name": "显示平假名"
-        },
-        {
-            "component": {
-                "dividers": {
-                    "backgroundColor": "#ffffff",
-                    "borderColor": "#000000",
-                    "borderSize": 1,
-                    "display": "true"
-                }
-            },
-            "name": "显示分词线"
-        },
-        {
-            "component": {
-                "dividers": {
-                    "display": "false"
-                }
-            },
-            "name": "隐藏分词线"
-        },
         {
             "component": {
                 "dialogue": {
@@ -69,26 +18,14 @@
             "component": {
                 "dialogue": {
                     "fontColor": "#ffffff",
-                    "fontEdgeColor": "#000000",
+                    "fontEdgeColor": "#ffffff",
                     "fontSize": 23
                 }
             },
             "name": "白色"
         }
     ],
-    "rulers": [
-        {
-            "name": "隐藏分词线",
-            "styles": [
-                "隐藏分词线"
-            ],
-            "tokens": {
-                "pos": [
-                    "无"
-                ]
-            }
-        }
-    ],
+    "rulers": [],
     "themes": [
         {
             "name": "Yellow",
@@ -99,7 +36,6 @@
         {
             "name": "White",
             "styles": [
-                "蓝色",
                 "白色"
             ]
         }
