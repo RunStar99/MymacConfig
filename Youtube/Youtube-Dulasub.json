@@ -1,43 +1,32 @@
 {
-    "title": "dualsub-legend",
-    "version": "1.0",
-    "time": "2020-12-21 15:01:18",
-    "styles": [
-        {
-            "component": {
-                "dialogue": {
-                    "fontColor": "#2cff26",
-                    "fontEdgeColor": "#ff1f18",
-                    "fontEdgeEffect": "outline",
-                    "fontSize": 25
-                }
+    "title": "dualsub-plugin",
+    "time": "2021-07-22 02:18:02",
+    "value": {
+        "items": [
+            {
+                "name": "YouTube 自动缩放",
+                "type": "style",
+                "code": ".ytd-page-manager .dualsub-renderer .contents {\n    font-size: 80%;\n}\n.ytd-page-manager[theater] .dualsub-renderer .contents {\n    font-size: 90%;\n}\n.ytd-page-manager[fullscreen] .dualsub-renderer .contents {\n    font-size: 100%;\n}",
+                "urls": [
+                    "https://www.youtube.com/"
+                ]
             },
-            "name": "黄色"
-        },
-        {
-            "component": {
-                "dialogue": {
-                    "fontColor": "#ffffff",
-                    "fontEdgeColor": "#ffffff",
-                    "fontSize": 23
-                }
+            {
+                "name": "YouTube 自动移动",
+                "type": "style",
+                "code": ".ytd-page-manager .dualsub-renderer {\n    margin-bottom: -50px;\n}\n.ytd-page-manager[theater] .dualsub-renderer {\n    margin-bottom: -40px;\n}\n.ytd-page-manager[fullscreen] .dualsub-renderer {\n    margin-bottom: 0;\n}",
+                "urls": [
+                    "https://www.youtube.com/"
+                ]
             },
-            "name": "白色"
-        }
-    ],
-    "rulers": [],
-    "themes": [
-        {
-            "name": "Yellow",
-            "styles": [
-                "黄色"
-            ]
-        },
-        {
-            "name": "White",
-            "styles": [
-                "白色"
-            ]
-        }
-    ]
+            {
+                "name": "Bilibili 自动缩放",
+                "type": "style",
+                "code": ".bilibili-player .dualsub-renderer .contents {\n    font-size: 70%;\n}\n.bilibili-player.mode-webwidescreen .dualsub-renderer .contents {\n    font-size: 80%;\n}\n.bilibili-player.mode-webfullscreen .dualsub-renderer .contents {\n    font-size: 90%;\n}\n.bilibili-player.mode-fullscreen .dualsub-renderer .contents {\n    font-size: 100%;\n}",
+                "urls": [
+                    "https://www.bilibili.com/"
+                ]
+            }
+        ]
+    }
 }

@@ -1,18 +1,23 @@
 bind_host: 0.0.0.0
-bind_port: 3002
+bind_port: 3003
+beta_bind_port: 3001
 users:
 - name: runstar
   password: $2a$10$ix.0PGHolDoYoeZxeRsdGOU8pdOfo0IT/1dR3ZORyp8mcEyX5TwnS
+auth_attempts: 5
+block_auth_min: 15
 http_proxy: ""
 language: ""
 rlimit_nofile: 0
 debug_pprof: false
 web_session_ttl: 720
 dns:
-  bind_host: 0.0.0.0
+  bind_hosts:
+  - 0.0.0.0
   port: 8053
   statistics_interval: 30
   querylog_enabled: true
+  querylog_file_enabled: true
   querylog_interval: 90
   querylog_size_memory: 1000
   anonymize_client_ip: false
@@ -29,13 +34,17 @@ dns:
   upstream_dns:
   - 127.0.0.1:7874
   - 223.5.5.5
+  upstream_dns_file: ""
   bootstrap_dns:
   - 223.5.5.5
   all_servers: true
   fastest_addr: false
   allowed_clients: []
   disallowed_clients: []
-  blocked_hosts: []
+  blocked_hosts:
+  - version.bind
+  - id.server
+  - hostname.bind
   cache_size: 0
   cache_ttl_min: 0
   cache_ttl_max: 0
@@ -43,6 +52,8 @@ dns:
   aaaa_disabled: true
   enable_dnssec: false
   edns_client_subnet: false
+  max_goroutines: 300
+  ipset: []
   filtering_enabled: true
   filters_update_interval: 24
   parental_enabled: false
@@ -54,12 +65,18 @@ dns:
   cache_time: 0
   rewrites: []
   blocked_services: []
+  local_domain_name: lan
+  resolve_clients: true
+  local_ptr_upstreams: []
 tls:
   enabled: false
   server_name: ""
   force_https: false
   port_https: 443
   port_dns_over_tls: 853
+  port_dns_over_quic: 784
+  port_dnscrypt: 0
+  dnscrypt_config_file: ""
   allow_unencrypted_doh: false
   strict_sni_check: false
   certificate_chain: ""
@@ -67,11 +84,11 @@ tls:
   certificate_path: ""
   private_key_path: ""
 filters:
-- enabled: true
+- enabled: false
   url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
   name: AdGuard DNS filter
   id: 1
-- enabled: false
+- enabled: true
   url: https://adaway.org/hosts.txt
   name: AdAway
   id: 2
@@ -84,25 +101,98 @@ filters:
   name: adgk手机去广告规则
   id: 1596282711
 - enabled: true
-  url: http://git.oschina.net/halflife/list/raw/master/ad.txt
-  name: My AdFilters
-  id: 1596282712
-- enabled: true
   url: https://cdn.jsdelivr.net/gh/privacy-protection-tools/anti-AD@master/anti-ad-easylist.txt
   name: anti-ad
   id: 1601621795
+- enabled: true
+  url: https://paulgb.github.io/BarbBlock/blacklists/hosts-file.txt
+  name: BarbBlock
+  id: 1617357541
+- enabled: true
+  url: https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblockplus&showintro=1&mimetype=plaintext
+  name: Peter Lowe's List
+  id: 1617357542
+- enabled: true
+  url: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/GameConsoleAdblockList.txt
+  name: Game Console Adblock List
+  id: 1617357543
+- enabled: true
+  url: https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV-AGH.txt
+  name: Perflyst and Dandelion Sprout's Smart-TV Blocklist
+  id: 1617357544
+- enabled: true
+  url: https://someonewhocares.org/hosts/zero/hosts
+  name: Dan Pollock's List
+  id: 1617357545
+- enabled: true
+  url: https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
+  name: WindowsSpyBlocker - Hosts spy rules
+  id: 1617357546
+- enabled: true
+  url: https://gitee.com/xinggsf/Adblock-Rule/raw/master/mv.txt
+  name: 乘风
+  id: 1617357547
+- enabled: true
+  url: https://halflife.coding.net/p/list/d/list/git/raw/master/ad.txt
+  name: HF
+  id: 1617357549
 whitelist_filters: []
-user_rules: []
+user_rules:
+- '||access-sngapm.qcloud.com^$important'
+- '@@||download.mql5.com^$important'
+- '@@||www.oxfordlearnersdictionaries.com^$important'
+- '@@||ads-static.brave.com^$important'
+- '@@||ads-serve.brave.com^$important'
+- '@@||tunemymusic-xvbumqfixmhzxo.stackpathdns.com^$important'
+- '@@||openwrt^$important'
+- '@@||languagelearningwithnetflix.com^$important'
+- '@@||push.prod.netflix.com^$important'
+- '@@||hw.zuimeitianqi.com^$important'
+- ""
 dhcp:
   enabled: false
   interface_name: ""
-  gateway_ip: ""
-  subnet_mask: ""
-  range_start: ""
-  range_end: ""
-  lease_duration: 86400
-  icmp_timeout_msec: 1000
+  dhcpv4:
+    gateway_ip: ""
+    subnet_mask: ""
+    range_start: ""
+    range_end: ""
+    lease_duration: 86400
+    icmp_timeout_msec: 1000
+    options: []
+  dhcpv6:
+    range_start: ""
+    lease_duration: 86400
+    ra_slaac_only: false
+    ra_allow_slaac: false
 clients:
+- name: Xiaomi6x
+  tags: []
+  ids:
+  - a4:50:46:f3:25:58
+  - 192.168.1.217
+  use_global_settings: true
+  filtering_enabled: false
+  parental_enabled: false
+  safesearch_enabled: false
+  safebrowsing_enabled: false
+  use_global_blocked_services: true
+  blocked_services: []
+  upstreams: []
+- name: HonorV20
+  tags: []
+  ids:
+  - 192.168.1.232
+  - 192.168.1.121
+  - 192.168.1.200
+  use_global_settings: true
+  filtering_enabled: false
+  parental_enabled: false
+  safesearch_enabled: false
+  safebrowsing_enabled: false
+  use_global_blocked_services: true
+  blocked_services: []
+  upstreams: []
 - name: XiaoXinpro
   tags: []
   ids:
@@ -116,11 +206,46 @@ clients:
   use_global_blocked_services: true
   blocked_services: []
   upstreams: []
-- name: MacbookPro
+- name: K2t
   tags: []
   ids:
-  - ee:41:18:94:93:fa
-  - 192.168.1.173
+  - 192.168.1.212
+  use_global_settings: true
+  filtering_enabled: false
+  parental_enabled: false
+  safesearch_enabled: false
+  safebrowsing_enabled: false
+  use_global_blocked_services: true
+  blocked_services: []
+  upstreams: []
+- name: Redmi note 10
+  tags: []
+  ids:
+  - 192.168.1.193
+  use_global_settings: true
+  filtering_enabled: false
+  parental_enabled: false
+  safesearch_enabled: false
+  safebrowsing_enabled: false
+  use_global_blocked_services: true
+  blocked_services: []
+  upstreams: []
+- name: n1
+  tags: []
+  ids:
+  - 192.168.1.1
+  use_global_settings: true
+  filtering_enabled: false
+  parental_enabled: false
+  safesearch_enabled: false
+  safebrowsing_enabled: false
+  use_global_blocked_services: true
+  blocked_services: []
+  upstreams: []
+- name: 小米路由器
+  tags: []
+  ids:
+  - 192.168.1.150
   use_global_settings: true
   filtering_enabled: false
   parental_enabled: false
@@ -143,11 +268,13 @@ clients:
   use_global_blocked_services: true
   blocked_services: []
   upstreams: []
-- name: Xiaomi6x
+- name: MacbookPro
   tags: []
   ids:
-  - a4:50:46:f3:25:58
-  - 192.168.1.217
+  - ee:41:18:94:93:fa
+  - 192.168.1.101
+  - 192.168.1.214
+  - 192.168.1.249
   use_global_settings: true
   filtering_enabled: false
   parental_enabled: false
@@ -156,19 +283,11 @@ clients:
   use_global_blocked_services: true
   blocked_services: []
   upstreams: []
-- name: HonorV20
-  tags: []
-  ids:
-  - 192.168.1.232
-  - 192.168.1.121
-  use_global_settings: true
-  filtering_enabled: false
-  parental_enabled: false
-  safesearch_enabled: false
-  safebrowsing_enabled: false
-  use_global_blocked_services: true
-  blocked_services: []
-  upstreams: []
+log_compress: false
+log_localtime: false
+log_max_backups: 0
+log_max_size: 100
+log_max_age: 3
 log_file: ""
 verbose: false
-schema_version: 6
+schema_version: 10
