@@ -1,6 +1,6 @@
 /usr/sbin/balethirq.pl
 /etc/init.d/AdGuardHome start
-sleep 60 && rclone mount emby: /home/gdrive \
+sleep 60 && rclone mount gdrive: /mnt/mmcblk2p4/gdrive \
 --umask 0000 \
 --default-permissions \
 --no-check-certificate \
